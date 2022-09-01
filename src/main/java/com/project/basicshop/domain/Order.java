@@ -6,21 +6,16 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-public class Member {
+public class Order {
 
     @Id @GeneratedValue
     @Column
     private Long id;
 
-    private String name;
-
-    private int age;
-
-    private String gender;
+    @Embedded
+    private OrderState state;
 
     @Embedded
-    private Address address;
-
-
+    private ShippingInfo shippingInfo;
 
 }
