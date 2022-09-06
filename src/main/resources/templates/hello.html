@@ -2,8 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>hello</title>
 </head>
+<script>
+    $.ajax({
+        url: "/api/example",
+        type: "POST",
+        data: {
+            name: "ajax",
+            age: "10"
+        },
+        contentType: "text/plain; charset=utf-8",
+        dataType: "json"
+    })
+</script>
 <body>
 hello~~~
 </body>
