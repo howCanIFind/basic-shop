@@ -1,9 +1,8 @@
 package com.project.basicshop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -17,5 +16,8 @@ public class Product {
     private String category;
 
     private String conpanyName;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<ProductMember> productMembers = new ArrayList<>();
 
 }
