@@ -17,4 +17,8 @@ public abstract class Product {
 
     private String companyName;
 
+    private Integer price;
+
+    private Integer deliveryFee;
+
 }
