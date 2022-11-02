@@ -11,4 +11,8 @@ public class Book extends Product{
     private String author;
 
     private LocalDateTime yearOfIssue;
+
+    private Integer page;
+
+    private String publisher;
 }
