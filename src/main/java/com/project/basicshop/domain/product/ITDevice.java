@@ -6,4 +6,6 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("I")
 public class ITDevice extends Product{
+
+    private String warrantyDate;
 }
