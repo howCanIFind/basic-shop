@@ -1,4 +1,4 @@
-package com.project.basicshop.domain;
+package com.project.basicshop.domain.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
