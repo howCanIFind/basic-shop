@@ -1,10 +1,14 @@
 package com.project.basicshop.domain.product;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.project.basicshop.domain.user.User;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor
 @Entity
 public class Product {
 
@@ -14,4 +18,24 @@ public class Product {
     private String name;
 
     private String company;
+
+    private String category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    @Builder
+    public Product(String name, String company, String category, User user) {
+        this.name = name;
+        this.company = company;
+        this.category = category;
+        this.user = user;
+    }
 }
+
+//product 도메인 정하기
+//
+//crud 완성하기
+//
+//
+//login 만들기
