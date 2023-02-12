@@ -7,6 +7,7 @@ import com.project.basicshop.domain.user.UserRepository;
 import com.project.basicshop.web.dto.ProductListResponseDto;
 import com.project.basicshop.web.dto.ProductResponseDto;
 import com.project.basicshop.web.dto.ProductSaveDto;
+import com.project.basicshop.web.dto.ProductUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +37,6 @@ public class ProductService {
                 .build();
     }
 
-    // read
     @Transactional(readOnly = true)
     public List<ProductListResponseDto> findAllDesc() {
         return productRepository.findAllDesc().stream()
@@ -44,8 +44,18 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    //update
-
+    @Transactional
+    public ProductResponseDto updateProduct(Long productId, ProductUpdateRequestDto productUpdateRequestDto) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다. productId=" + productId));
+        product.update(productUpdateRequestDto.getName(), productUpdateRequestDto.getCompany(), productUpdateRequestDto.getCategory());
+        return ProductResponseDto.builder()
+                .name(product.getName())
+                .company(product.getCompany())
+                .category(product.getCategory())
+                .userId(product.getUser().getEmail())
+                .build();
+    }
 
     // delete
 }

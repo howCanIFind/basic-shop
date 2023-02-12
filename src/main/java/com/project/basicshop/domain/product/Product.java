@@ -31,6 +31,12 @@ public class Product {
         this.category = category;
         this.user = user;
     }
+
+    public void update(String name, String company,String category) {
+        this.name = name;
+        this.company = company;
+        this.category = category;
+    }
 }
 
 //product 도메인 정하기
