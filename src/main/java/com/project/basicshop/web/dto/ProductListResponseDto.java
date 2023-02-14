@@ -7,6 +7,7 @@ public class ProductListResponseDto {
     private String name;
     private String company;
     private String category;
+    private Long price;
     private String userId;
 
     public ProductListResponseDto(Product product) {
@@ -14,6 +15,7 @@ public class ProductListResponseDto {
         this.name = product.getName();
         this.company = product.getCompany();
         this.category = product.getCategory();
+        this.price = product.getPrice();
         this.userId = product.getUser().getEmail();
     }
 }

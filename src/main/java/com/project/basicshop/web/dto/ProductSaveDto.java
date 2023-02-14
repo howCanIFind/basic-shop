@@ -13,12 +13,14 @@ public class ProductSaveDto {
     private String name;
     private String company;
     private String category;
+    private Long price;
 
-    public ProductSaveDto(String userId, String name, String company, String category) {
+    public ProductSaveDto(String userId, String name, String company, String category, Long price) {
         this.userId = userId;
         this.name = name;
         this.company = company;
         this.category = category;
+        this.price = price;
     }
 
     public Product toEntity(User user) {
@@ -26,6 +28,7 @@ public class ProductSaveDto {
                 .name(name)
                 .company(company)
                 .category(category)
+                .price(price)
                 .user(user)
                 .build();
     }

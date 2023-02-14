@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -33,6 +32,7 @@ public class ProductService {
                 .name(product.getName())
                 .company(product.getCompany())
                 .category(product.getCategory())
+                .price(product.getPrice())
                 .userId(product.getUser().getEmail())
                 .build();
     }
@@ -48,7 +48,8 @@ public class ProductService {
     public ProductResponseDto updateProduct(Long productId, ProductUpdateRequestDto productUpdateRequestDto) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다. productId=" + productId));
-        product.update(productUpdateRequestDto.getName(), productUpdateRequestDto.getCompany(), productUpdateRequestDto.getCategory());
+        product.update(productUpdateRequestDto.getName(), productUpdateRequestDto.getCompany(),
+                productUpdateRequestDto.getCategory(), productUpdateRequestDto.getPrice());
         return ProductResponseDto.builder()
                 .name(product.getName())
                 .company(product.getCompany())
@@ -57,7 +58,6 @@ public class ProductService {
                 .build();
     }
 
-    // delete
     @Transactional
     public void delete(Long productId) {
         Product product = productRepository.findById(productId)

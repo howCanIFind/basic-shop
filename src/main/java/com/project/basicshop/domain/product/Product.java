@@ -21,27 +21,24 @@ public class Product {
 
     private String category;
 
+    private Long price;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder
-    public Product(String name, String company, String category, User user) {
+    public Product(String name, String company, String category, Long price, User user) {
         this.name = name;
         this.company = company;
         this.category = category;
+        this.price = price;
         this.user = user;
     }
 
-    public void update(String name, String company,String category) {
+    public void update(String name, String company,String category, Long price) {
         this.name = name;
         this.company = company;
         this.category = category;
+        this.price = price;
     }
 }
-
-//product 도메인 정하기
-//
-//crud 완성하기
-//
-//
-//login 만들기
