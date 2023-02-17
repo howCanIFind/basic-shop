@@ -79,8 +79,8 @@ class ProductRepositoryTest {
                 .price(10000L)
                 .user(savedUser)
                 .build();
-        Product savedProduct1 = productRepository.save(product1);
-        Product savedProduct2 = productRepository.save(product2);
+        productRepository.save(product1);
+        productRepository.save(product2);
 
 
         // when
