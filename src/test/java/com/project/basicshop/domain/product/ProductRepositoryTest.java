@@ -6,13 +6,13 @@ import com.project.basicshop.domain.user.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
 class ProductRepositoryTest {
 
     @Autowired
@@ -27,7 +27,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    public void 게시글저장() {
+    public void 게시글저장_test() {
         // given
         User user = User.builder()
                 .email("이메일")
@@ -49,14 +49,14 @@ class ProductRepositoryTest {
 
         // then
         Product findProduct = productRepository.findById(savedProduct.getId()).get();
-        assertThat(findProduct.getName()).isEqualTo(savedProduct.getName());
-        assertThat(findProduct.getCompany()).isEqualTo(savedProduct.getCompany());
-        assertThat(findProduct.getCategory()).isEqualTo(savedProduct.getCategory());
-        assertThat(findProduct.getPrice()).isEqualTo(savedProduct.getPrice());
+        assertEquals(findProduct.getName(), savedProduct.getName());
+        assertEquals(findProduct.getCompany(), savedProduct.getCompany());
+        assertEquals(findProduct.getCategory(), savedProduct.getCategory());
+        assertEquals(findProduct.getPrice(), savedProduct.getPrice());
     }
 
     @Test
-    public void 게시글_전체_조회() {
+    public void 게시글_전체_조회_test() {
         // given
         User user = User.builder()
                 .email("이메일")
@@ -87,7 +87,32 @@ class ProductRepositoryTest {
         List<Product> result = productRepository.findAll();
 
         //then
-        assertThat(result.size()).isEqualTo(2);
+        assertEquals(result.size(), 2);
 //        assertThat(result).contains(savedProduct1, savedProduct2);
+    }
+
+    @Test
+    public void 책삭제_test() {
+        // given
+        String name = "상품 이름";
+        String company = "회사 이름";
+        String category = "카테고리";
+        Long price = 10000L;
+        Product product = Product.builder()
+                .name(name)
+                .company(company)
+                .category(category)
+                .price(price)
+                .build();
+        Product savedProduct = productRepository.save(product);
+        Long id = savedProduct.getId();
+        System.out.println(id);
+
+        // when
+        productRepository.deleteById(id);
+
+        // then
+        assertFalse(productRepository.findById(id).isPresent());
+
     }
 }
