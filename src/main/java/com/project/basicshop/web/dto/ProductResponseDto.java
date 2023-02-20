@@ -1,7 +1,11 @@
 package com.project.basicshop.web.dto;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 public class ProductResponseDto {
     private String name;
     private String company;
