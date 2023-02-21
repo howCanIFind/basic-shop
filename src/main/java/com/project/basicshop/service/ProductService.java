@@ -44,6 +44,19 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public ProductResponseDto findProduct(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다. productId=" + productId));
+        return ProductResponseDto.builder()
+                .name(product.getName())
+                .company(product.getCompany())
+                .category(product.getCategory())
+                .price(product.getPrice())
+                .userId(product.getUser().getEmail())
+                .build();
+    }
+
     @Transactional
     public ProductResponseDto updateProduct(Long productId, ProductUpdateRequestDto productUpdateRequestDto) {
         Product product = productRepository.findById(productId)

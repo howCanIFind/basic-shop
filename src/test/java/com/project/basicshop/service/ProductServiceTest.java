@@ -33,7 +33,7 @@ class ProductServiceTest {
     private UserRepository userRepository;
 
     @Test
-    public void 책등록하기_test() {
+    public void 상품등록하기_test() {
         // given
         ProductSaveDto productSaveDto = new ProductSaveDto("이메일", "상품 이름", "회사 이름", "카테고리", 10000L);
         User user = User.builder()
