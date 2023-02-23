@@ -5,6 +5,7 @@ import com.project.basicshop.domain.product.ProductRepository;
 import com.project.basicshop.domain.user.Role;
 import com.project.basicshop.domain.user.User;
 import com.project.basicshop.domain.user.UserRepository;
+import com.project.basicshop.web.dto.ProductListResponseDto;
 import com.project.basicshop.web.dto.ProductResponseDto;
 import com.project.basicshop.web.dto.ProductSaveDto;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -88,6 +91,51 @@ class ProductServiceTest {
         assertThat(productResponseDto.getCompany()).isEqualTo(product.getCompany());
         assertThat(productResponseDto.getCategory()).isEqualTo(product.getCategory());
         assertThat(productResponseDto.getPrice()).isEqualTo(product.getPrice());
+    }
+
+    @Test
+    public void 상품목록보가_test() {
+        // given
+
+        // stub
+        User user = User.builder()
+                .name("유저 이름")
+                .email("이메일")
+                .role(Role.USER)
+                .picture("사진")
+                .build();
+        Product product1 = Product.builder()
+                .name("상품 이름1")
+                .company("회사 이름1")
+                .category("카테고리1")
+                .price(10000L)
+                .user(user)
+                .build();
+        Product product2 = Product.builder()
+                .name("상품 이름2")
+                .company("회사 이름2")
+                .category("카테고리2")
+                .price(20000L)
+                .user(user)
+                .build();
+        List<Product> products = new ArrayList<>();
+        products.add(product2);
+        products.add(product1);
+        when(productRepository.findAllDesc()).thenReturn(products);
+
+        // when
+        List<ProductListResponseDto> productListResponseDtoList = productService.findAllDesc();
+
+        // then
+        assertThat(productListResponseDtoList.get(0).getName()).isEqualTo("상품 이름2");
+        assertThat(productListResponseDtoList.get(0).getCompany()).isEqualTo("회사 이름2");
+        assertThat(productListResponseDtoList.get(0).getCategory()).isEqualTo("카테고리2");
+        assertThat(productListResponseDtoList.get(0).getPrice()).isEqualTo(20000L);
+
+        assertThat(productListResponseDtoList.get(1).getName()).isEqualTo("상품 이름1");
+        assertThat(productListResponseDtoList.get(1).getCompany()).isEqualTo("회사 이름1");
+        assertThat(productListResponseDtoList.get(1).getCategory()).isEqualTo("카테고리1");
+        assertThat(productListResponseDtoList.get(1).getPrice()).isEqualTo(10000L);
     }
 
 }

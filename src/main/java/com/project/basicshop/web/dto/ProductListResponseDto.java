@@ -1,7 +1,9 @@
 package com.project.basicshop.web.dto;
 
 import com.project.basicshop.domain.product.Product;
+import lombok.Getter;
 
+@Getter
 public class ProductListResponseDto {
     private Long productId;
     private String name;
