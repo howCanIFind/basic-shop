@@ -8,6 +8,7 @@ import com.project.basicshop.domain.user.UserRepository;
 import com.project.basicshop.web.dto.ProductListResponseDto;
 import com.project.basicshop.web.dto.ProductResponseDto;
 import com.project.basicshop.web.dto.ProductSaveDto;
+import com.project.basicshop.web.dto.ProductUpdateRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -138,4 +139,40 @@ class ProductServiceTest {
         assertThat(productListResponseDtoList.get(1).getPrice()).isEqualTo(10000L);
     }
 
+    @Test
+    public void 상품수정하기_test() {
+        // given
+        Long id = 1L;
+        ProductUpdateRequestDto productUpdateRequestDto = ProductUpdateRequestDto.builder()
+                .name("상품 이름2")
+                .company("회사 이름2")
+                .category("카테고리2")
+                .price(20000L)
+                .build();
+
+        // stub
+        User user = User.builder()
+                .name("유저 이름")
+                .email("이메일")
+                .role(Role.USER)
+                .picture("사진")
+                .build();
+        Product product = Product.builder()
+                .name("상품 이름1")
+                .company("회사 이름1")
+                .category("카테고리1")
+                .price(10000L)
+                .user(user)
+                .build();
+        when(productRepository.findById(id)).thenReturn(Optional.ofNullable(product));
+
+        // when
+        ProductResponseDto productResponseDto = productService.updateProduct(id, productUpdateRequestDto);
+
+        // then
+        assertThat(productResponseDto.getName()).isEqualTo(productUpdateRequestDto.getName());
+        assertThat(productResponseDto.getCompany()).isEqualTo(productResponseDto.getCompany());
+        assertThat(productResponseDto.getCategory()).isEqualTo(productResponseDto.getCategory());
+        assertThat(productResponseDto.getPrice()).isEqualTo(productResponseDto.getPrice());
+    }
 }
