@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@Table(name = "users")
 @Entity
 public class User {
 
@@ -20,7 +21,8 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Column String picture;
+    @Column
+    private String picture;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -34,7 +36,7 @@ public class User {
         this.role = role;
     }
 
-    public User update(String user, String picture) {
+    public User update(String name, String picture) {
         this.name = name;
         this.picture = picture;
 
