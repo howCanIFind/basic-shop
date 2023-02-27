@@ -175,14 +175,4 @@ class ProductServiceTest {
         assertThat(productResponseDto.getCategory()).isEqualTo(productResponseDto.getCategory());
         assertThat(productResponseDto.getPrice()).isEqualTo(productResponseDto.getPrice());
     }
-
-    public void 상품삭제하기_test() {
-        // given
-
-        // stub
-
-        // when
-
-        // then
-    }
 }
