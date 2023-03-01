@@ -29,9 +29,6 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Review review;
-
     @Builder
     public User(String name, String email, String picture, Role role) {
         this.name = name;
