@@ -1,5 +1,6 @@
 package com.project.basicshop.domain.user;
 
+import com.project.basicshop.domain.product.Review;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Review review;
 
     @Builder
     public User(String name, String email, String picture, Role role) {
